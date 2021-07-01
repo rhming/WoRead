@@ -72,7 +72,7 @@ class LaunchDraw(WoRead):
                     "continuityFlag": 1,
                     "source": 42,
                     "activeindex": 6640,
-                    "useraccount": "13018974080"
+                    "useraccount": "12345678901"
                 },
                 {
                     "clockindate": "20210623",
@@ -81,7 +81,7 @@ class LaunchDraw(WoRead):
                     "continuityFlag": 1,
                     "source": 42,
                     "activeindex": 6640,
-                    "useraccount": "13018974080"
+                    "useraccount": "12345678901"
                 },
                 {
                     "clockindate": "20210622",
@@ -90,7 +90,7 @@ class LaunchDraw(WoRead):
                     "continuityFlag": 0,
                     "source": 42,
                     "activeindex": 6640,
-                    "useraccount": "13018974080"
+                    "useraccount": "12345678901"
                 }
             ]
         }
@@ -118,7 +118,7 @@ class LaunchDraw(WoRead):
                     "continuityFlag": 0,
                     "source": 42,
                     "activeindex": 6640,
-                    "useraccount": "13018974080"
+                    "useraccount": "12345678901"
                 }
             ],
             "message": "上报成功",
@@ -172,4 +172,4 @@ if __name__ == "__main__":
     import sys
     import codecs
     sys.stdout = codecs.getwriter("utf8")(sys.stdout.detach())
-    LaunchDraw('13018974080').run()
+    LaunchDraw('12345678901').run()
