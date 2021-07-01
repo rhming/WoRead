@@ -14,7 +14,7 @@ import time
 
 def Template(cls):
     ts = []
-    for mobile in ['13134036131', '13018974080']:
+    for mobile in ['12345678901', '12345678902']:
         ts.append(Thread(target=cls(mobile).run))
     for t in ts:
         t.start()
