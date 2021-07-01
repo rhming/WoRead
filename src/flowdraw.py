@@ -65,7 +65,7 @@ class WoRead:
                 "value": self.CookieDictToString()
             }, 
             headers={
-                "Authorization": "Basic aXNvbGF0ZW1hYzo3ODI2MDAwMA==",
+                "Authorization": "",
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36"
             }
         )
@@ -75,7 +75,7 @@ class WoRead:
         resp = requests.get(
             url="https://isolatemac.pythonanywhere.com/store/", 
             headers={
-                "Authorization": "Basic aXNvbGF0ZW1hYzo3ODI2MDAwMA==",
+                "Authorization": "",
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36"
             }
         )
