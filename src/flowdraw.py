@@ -82,6 +82,8 @@ class WoRead:
         )
         message = resp.json()
         data = message["msg"]
+        if data == "error":
+            return ""
         return data[self.mobile + "WoRead"]
 
     def index(self):
