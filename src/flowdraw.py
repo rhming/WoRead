@@ -54,7 +54,7 @@ class WoRead:
 
     def CookieStringToDict(self):
         return {
-            item.split('=', 1)[0]: item.split('=', 1)[1] for item in self.CookieString.split('; ')
+            item.split('=', 1)[0]: item.split('=', 1)[1] for item in self.CookieString.split('; ') if item.strip()
         }
 
     def saveCookie(self):
