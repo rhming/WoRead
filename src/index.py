@@ -14,6 +14,7 @@ import time
 
 def Template(cls):
     ts = []
+    # 手机号配置
     for mobile in ['12345678901', '12345678902']:
         ts.append(Thread(target=cls(mobile).run))
     for t in ts:
