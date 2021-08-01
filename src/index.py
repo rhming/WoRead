@@ -24,11 +24,15 @@ def Template(cls):
 
 
 def main_handler(event=None, context=None):
-
+    
+    # 总计10次
     Template(WoRead)
+    # 根据触发配置 更改相应时间段
     format_localtime = int(time.strftime("%H%M", time.localtime(time.time() + 8 * 60 * 60)))
+    # 总计5次
     if format_localtime < 1200:
         Template(LuckDraw)
         Template(BookDraw)
-    if format_localtime >= 1200 and format_localtime < 1230:
+    # 总计1次
+    if format_localtime >= 600 and format_localtime < 630:
         Template(LaunchDraw)
