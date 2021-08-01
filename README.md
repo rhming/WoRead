@@ -9,4 +9,4 @@
 + 云函数触发配置 至少间隔10分钟执行一次 总共需执行10次(图片中是每半小时执行一次)
 > ![image](https://user-images.githubusercontent.com/49028484/127760022-ca02d98d-456f-4a63-ba7a-572dfe3bbc38.png)
 
-
++ 避免频繁登录 登录Cookie会自动保存到远程服务器
