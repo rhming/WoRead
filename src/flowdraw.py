@@ -146,9 +146,9 @@ class WoRead:
             return 0
         if data['innercode'] == '2004':
             pass
-        if data['innercode'] == '2008':
+        if data['innercode'] == '2008':  # 库存不足
             return 0
-        if data['innercode'] != '0000' and sendTry > 0:
+        if data['innercode'] != '0000' and sendTry > 0:  # 每次领取时间间隔过短 导致计时不准确 而外增加阅读时长
             self.flushTime(120)
             self.ajaxUpdatePersonReadtime()
             self.sendRightOfGoldCoin(sendTry - 1)
