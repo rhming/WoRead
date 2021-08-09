@@ -1,11 +1,11 @@
 # -*- coding: utf8 -*-
+import time
 from flowdraw import WoRead
 from threading import Thread
 from luckdraw import LuckDraw
 from bookdraw import BookDraw
-from launchdraw import LaunchDraw
 from prizedetail import Prize
-import time
+from launchdraw import LaunchDraw
 
 
 # import sys
