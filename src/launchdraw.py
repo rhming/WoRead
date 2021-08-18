@@ -1,4 +1,4 @@
-# -*- coding:utf8 -*-
+# -*- coding: utf8 -*-
 import re
 import requests
 from lxml import etree
@@ -13,10 +13,6 @@ class LaunchDraw(WoRead):
         self.isdrawtoday = False
 
     def index(self):
-        '''
-        活动首页 html
-        return text/html
-        '''
         self.session.headers.update({
             "Accept": "text/html, */*; q=0.01",
             "X-Requested-With": "XMLHttpRequest",
@@ -42,17 +38,13 @@ class LaunchDraw(WoRead):
             if cardText.find('fillDrawTimes') == -1:
                 continue
             date_string = re.findall(
-                r".+fillDrawTimes\('(\d+)'.+", cardText)[0]
+                r".+fillDrawTimes\('(\d+)'.+", cardText
+            )[0]
             # print(date_string)
             self.fillDrawTimes(date_string)
             self.flushTime(20)
 
     def fillDrawTimes(self, date_string):
-        '''
-        param date_string 20210601
-        补签 
-        return text/html
-        '''
         print(f'{date_string}补签')
         self.session.headers.update({
             "X-Requested-With": "XMLHttpRequest",
@@ -61,45 +53,8 @@ class LaunchDraw(WoRead):
         url = f'https://st.woread.com.cn/touchextenernal/readluchdraw/fillDrawTimes.action?date={date_string}'
         resp = self.session.get(url=url)
         print(resp.json())
-        {
-            "code": "0000",
-            "message": "上报成功",
-            "list": [
-                {
-                    "clockindate": "20210624",
-                    "continuityDays": 3,
-                    "clockintime": "2021-06-24 18:59:53",
-                    "continuityFlag": 1,
-                    "source": 42,
-                    "activeindex": 6640,
-                    "useraccount": "12345678901"
-                },
-                {
-                    "clockindate": "20210623",
-                    "continuityDays": 2,
-                    "clockintime": "2021-06-24 19:33:25",
-                    "continuityFlag": 1,
-                    "source": 42,
-                    "activeindex": 6640,
-                    "useraccount": "12345678901"
-                },
-                {
-                    "clockindate": "20210622",
-                    "continuityDays": 1,
-                    "clockintime": "2021-06-24 19:35:37",
-                    "continuityFlag": 0,
-                    "source": 42,
-                    "activeindex": 6640,
-                    "useraccount": "12345678901"
-                }
-            ]
-        }
 
     def addDrawTimes(self):
-        '''
-        打卡
-        return json
-        '''
         self.session.headers.update({
             "Accept": "application/json, text/javascript, */*; q=0.01",
             "X-Requested-With": "XMLHttpRequest",
@@ -108,28 +63,8 @@ class LaunchDraw(WoRead):
         url = 'http://st.woread.com.cn/touchextenernal/readluchdraw/addDrawTimes.action'
         resp = self.session.post(url=url)
         print(resp.json())
-        {
-            "code": "0000",
-            "list": [
-                {
-                    "clockindate": "20210624",
-                    "continuityDays": 1,
-                    "clockintime": "2021-06-24 18:59:53",
-                    "continuityFlag": 0,
-                    "source": 42,
-                    "activeindex": 6640,
-                    "useraccount": "12345678901"
-                }
-            ],
-            "message": "上报成功",
-            "innercode": "0000"
-        }
 
     def doDraw(self, acticeindex):
-        '''
-        抽奖
-        return json
-        '''
         self.session.headers.update({
             "Accept": "application/json, text/javascript, */*; q=0.01",
             "X-Requested-With": "XMLHttpRequest",
@@ -142,14 +77,6 @@ class LaunchDraw(WoRead):
         }
         resp = self.session.post(url=url, data=data)
         print(resp.json())
-        {
-            "prizedesc": "蜻蜓FM月卡",
-            "datetime": "20210624191953",
-            "code": "0000",
-            "prizetype": "2",
-            "message": "1",
-            "innercode": "0000"
-        }
 
     def run(self):
         try:
