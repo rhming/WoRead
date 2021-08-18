@@ -1,11 +1,11 @@
 # -*- coding: utf8 -*-
+import time
 from flowdraw import WoRead
 from threading import Thread
 from luckdraw import LuckDraw
 from bookdraw import BookDraw
-from launchdraw import LaunchDraw
 from prizedetail import Prize
-import time
+from launchdraw import LaunchDraw
 
 
 # import sys
@@ -25,7 +25,6 @@ def Template(cls):
 
 
 def main_handler(event=None, context=None):
-
     # 总计10次
     Template(WoRead)
     # 根据云函数触发配置 更改相应时间段
