@@ -137,21 +137,27 @@ class WoRead:
         resp = self.session.post(url=url, data=data)
         print(self.mobile + ' ' + resp.text)
 
-    def sendRightOfGoldCoin(self, sendTry=1):
-        url = 'http://st.woread.com.cn/touchextenernal/readActivity/sendRightOfGoldCoin.action?userType=112&homeArea=036&homeCity=360'
+    def sendRightOfGoldCoin(self, sendTry=1, other_url=False):
+        url = 'http://st.woread.com.cn/touchextenernal/readActivity/sendRightOfGoldCoin.action?userType=112&homeArea=036&homeCity=360&sendType=2'
+        if other_url:
+            url = 'http://st.woread.com.cn/touchextenernal/readActivity/sendRightOfGoldCoin.action?userType=112&homeArea=036&homeCity=360'
         resp = self.session.get(url=url)
         print(self.mobile + ' ' + resp.text)
         data = resp.json()
-        if data['innercode'] == '2003':
+        if data['innercode'] == '2002':  # 今日已完成
             return 0
-        if data['innercode'] == '2004':
+        if data['innercode'] == '2003':  # 无库存(120、100)
+            return 0
+        if data['innercode'] == '2004':  # 阅读时长不够
             pass
-        if data['innercode'] == '2008':  # 库存不足
-            return 0
-        if data['innercode'] != '0000' and sendTry > 0:  # 每次领取时间间隔过短 导致计时不准确 而外增加阅读时长
+        if data['innercode'] == '2008':  # 无库存(120/100)
+            other_url = True
+        if data['innercode'] != '0000' and sendTry > 0:  # 额外增加阅读时长
             self.flushTime(120)
             self.ajaxUpdatePersonReadtime()
-            self.sendRightOfGoldCoin(sendTry - 1)
+            self.sendRightOfGoldCoin(sendTry - 1, other_url)
+        elif data['innercode'] != '0000' and sendTry <= 0:
+            return 0
         else:
             data = resp.json()
             return data['message']['daySurplus']
