@@ -46,7 +46,7 @@ class WoRead:
         return EncryptMobile
 
     def flushTime(self, timeout):
-        for _ in range(timeout, 0, -1):
+        for _ in range(timeout, -1, -1):
             sleep(1)
 
     def CookieDictToString(self):
