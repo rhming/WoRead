@@ -1,4 +1,4 @@
-# -*- coding:utf8 -*-
+# -*- coding: utf8 -*-
 import re
 import json
 import requests
@@ -37,18 +37,12 @@ class Prize(WoRead):
             info = json.loads(fp.read())
         if info.get(self.mobile, False):
             data.update(info[self.mobile])
+            print(data)
+            resp = self.session.post(url=url, data=data)
+            resp.encoding = 'utf8'
+            print(resp.text)
         else:
-            data.update({
-                "areaname": "朝阳区",
-                "cityname": "北京",
-                "contactaddr": "",
-                "contactor": "***",
-                "provname": "北京"
-            })
-        print(data)
-        resp = self.session.post(url=url, data=data)
-        resp.encoding = 'utf8'
-        print(resp.text)
+            print("未获取到配置信息,创建收货地址失败")
 
     def index(self, item, retry=1):
         url = 'http://st.woread.com.cn' + item['url']
@@ -56,17 +50,17 @@ class Prize(WoRead):
         resp.encoding = 'utf8'
         if resp.text.find('itemCenter') > -1:
             print('收货地址存在')
+            e = etree.HTML(resp.text)
+            info = e.xpath('string(//div[@class="itemCenter"]/@onclick)')
+            self.addrInfo = json.loads(
+                re.sub(r'selectAddress\((\{.+\}).+', r'\1', info)
+            )
+            print(self.addrInfo)
         else:
-            print('收获地址不存在')
+            print('收货地址不存在')
             if retry > 0:
                 self.updateAddr(item)
                 self.index(item, retry - 1)
-        e = etree.HTML(resp.text)
-        info = e.xpath('string(//div[@class="itemCenter"]/@onclick)')
-        self.addrInfo = json.loads(
-            re.sub(r'selectAddress\((\{.+\}).+', r'\1', info)
-        )
-        print(self.addrInfo)
 
     def parsePrize(self):
         url = 'http://st.woread.com.cn/touchextenernal/read/moreMyPrize.action'
@@ -104,13 +98,16 @@ class Prize(WoRead):
         print(resp.text)
 
     def run(self):
+        self.addrInfo = None
         for index, (prize, name) in enumerate(zip(*self.parsePrize())):
             print(prize)
             print(name)
             item = self.queryParamToDict(prize.split('?')[1])
             item['url'] = quote(prize, safe='/=&:?')
             if index == 0:
-                self.index(item, prize)
+                self.index(item)
+            if not self.addrInfo:
+                return
             self.getPrize(item)
             self.flushTime(3)
 
