@@ -25,8 +25,8 @@ def Template(cls):
 
 
 def main_handler(event=None, context=None):
-    # 总计10次
-    Template(WoRead)
+    # 总计10次 已结束
+    # Template(WoRead)
     # 根据云函数触发配置 更改相应时间段
     # format_localtime 小时分钟
     format_localtime = int(time.strftime("%H%M", time.localtime(time.time() + 8 * 60 * 60)))
