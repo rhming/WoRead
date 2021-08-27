@@ -74,17 +74,17 @@ class WoRead:
     def readCookie(self):
         resp = requests.get(
             url="https://isolatemac.pythonanywhere.com/store/", 
-            params={"account": self.mobile + "WoRead"}, 
+            params={"key": self.mobile + "WoRead"}, 
             headers={
                 "Authorization": "Basic aXNvbGF0ZW1hYzo3ODI2MDAwMA==",
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36"
             }
         )
         message = resp.json()
-        data = message["msg"]
-        if data == "error":
-            return ""
-        return data[self.mobile + "WoRead"]
+        if message["msg"]:
+            data  = message["data"]
+            return data[self.mobile + "WoRead"]
+        return ""
 
     def index(self):
         self.session.headers['X-Requested-With'] = 'com.sinovatech.unicom.ui'
