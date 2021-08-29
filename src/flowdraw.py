@@ -27,6 +27,9 @@ class WoRead:
         self.CookieString = self.readCookie()
         self.CookieDict = self.CookieStringToDict()
         self.session.headers['Cookie'] = self.CookieString
+        if not self.popupListInfo():
+            self.index()
+            self.login()
 
     def getEncryptMobile(self):
         with open(BASE_DIR + '/security.js', 'r', encoding='utf8') as fr:
@@ -173,9 +176,6 @@ class WoRead:
             return 11
 
     def run(self):
-        if not self.popupListInfo():
-            self.index()
-            self.login()
         self.session.headers['Referer'] = 'http://st.woread.com.cn/touchextenernal/contentread/chapter.action?cntindex=2254283&authorname=null&cntname=null&bookcover=null&catid=118381&volumeallindex=2937704&chapterallindex=109243887&chapterseno=1&pageIndex=10681&cardid=11854&payType=NDI3MzJGMTg1RDQ5MDVBOURFQUYyODgxNkJEN0NFQ0M%3D&cntrarflag=1&finishflag=1'
         start = self.checkRightOfGoldCoin()
         if start == 11:
