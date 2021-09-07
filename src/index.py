@@ -6,6 +6,7 @@ from luckdraw import LuckDraw
 from bookdraw import BookDraw
 from prizedetail import Prize
 from launchdraw import LaunchDraw
+from thanksgiving import ThanksGiving
 
 
 # import sys
@@ -34,6 +35,9 @@ def main_handler(event=None, context=None):
     if format_localtime < 1200:  # 在12点0分前执行该任务
         Template(LuckDraw)
         Template(BookDraw)
+    # 总计5次
+    if format_localtime < 800:  # 在8点0分前执行该任务
+        Template(ThanksGiving)
     # 总计1次
     if format_localtime >= 600 and format_localtime < 630:  # 在6点0分到6点30分之间执行该任务
         Template(LaunchDraw)
